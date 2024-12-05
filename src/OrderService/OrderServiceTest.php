@@ -57,6 +57,6 @@ class OrderServiceTest extends TestCase
         $input->itemCurrency = 'NTD';
         $input->cardNumber = '1234567812345678';
     
-        $orderSrv->processOrder($input);
+        $orderSrv->process($input);
     }
 }

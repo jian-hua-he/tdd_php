@@ -10,7 +10,7 @@ build:
 
 # Run the container with current directory mounted
 .PHONY: run
-run: build
+run:
 	docker run -it --rm \
 		--name $(CONTAINER_NAME) \
 		-v $(PWD):/code \

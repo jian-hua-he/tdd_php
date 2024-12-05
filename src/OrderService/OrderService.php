@@ -28,7 +28,7 @@ class OrderService
         $this->emailService = $emailService;
     }
 
-    public function processOrder(ProcessInput $input): void {
+    public function process(ProcessInput $input): void {
         $order = new Order();
         $order->customerName = $input->customerName;
         $order->customerEmail = $input->customerEmail;
