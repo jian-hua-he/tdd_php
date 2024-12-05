@@ -9,8 +9,8 @@ class OrderServiceTest extends TestCase
     public function testProcessOrder_Successful() {
         $orderSrv = new OrderService();
 
-        $order = new Order();
+        $input = new ProcessInput();
     
-        $orderSrv->processOrder($order);
+        $orderSrv->processOrder($input);
     }
 }
