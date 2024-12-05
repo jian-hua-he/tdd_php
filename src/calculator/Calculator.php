@@ -1,5 +1,7 @@
 <?php
 
+namespace Root\Code\Calculator;
+
 class Calculator
 {
     public function add(int $num1, int $num2): int {
