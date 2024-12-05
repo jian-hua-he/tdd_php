@@ -50,6 +50,12 @@ class OrderServiceTest extends TestCase
         );
 
         $input = new ProcessInput();
+        $input->customerName = 'John Doe';
+        $input->customerEmail = 'john.doe@example.com';
+        $input->itemName = 'Steam deck';
+        $input->itemPrice = '21000';
+        $input->itemCurrency = 'NTD';
+        $input->cardNumber = '1234567812345678';
     
         $orderSrv->processOrder($input);
     }

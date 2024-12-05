@@ -10,5 +10,4 @@ class Order
     public string $itemPrice;
     public string $itemCurrency;
     public string $cardNumber;
-
 }
