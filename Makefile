@@ -18,14 +18,13 @@ run: build
 		tail -f /dev/null
 
 .PHONY: exec
-exec: run
+exec:
 	docker exec -it $(CONTAINER_NAME) /bin/bash
 
 # Stop and remove the container and image
 .PHONY: destroy
 destroy:
-	-docker stop $(CONTAINER_NAME)
-	-docker rm $(CONTAINER_NAME)
+	-docker rm --force $(CONTAINER_NAME)
 	-docker rmi $(IMAGE_NAME)
 
 # List all commands
