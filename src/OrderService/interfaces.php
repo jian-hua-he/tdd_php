@@ -7,7 +7,7 @@ interface OrderRepoInterface {
 }
 
 interface PaymentGatewayInterface {
-    function makePayment(string $orderId);
+    function makePayment(string $orderId): void;
 }
 
 interface EmailServiceInterface {
