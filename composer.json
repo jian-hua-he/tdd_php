@@ -1,0 +1,17 @@
+{
+    "name": "root/code",
+    "type": "project",
+    "require": {
+        "phpunit/phpunit": "^11.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "Root\\Code\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Jian-Hua He"
+        }
+    ]
+}
