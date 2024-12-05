@@ -29,6 +29,28 @@ class OrderService
     }
 
     public function processOrder(ProcessInput $input): void {
-        throw new \Exception('no implementation');
+        $order = new Order();
+        $order->customerName = $input->customerName;
+        $order->customerEmail = $input->customerEmail;
+        $order->itemName = $input->itemName;
+        $order->itemPrice = $input->itemPrice;
+        $order->itemCurrency = $input->itemCurrency;
+        $order->cardNumber = $input->cardNumber;
+
+        $this->orderRepo->save($order);
+
+        $payment = new Payment();
+        $payment->cardNumber = $input->cardNumber;
+        $payment->amount = $input->itemPrice;
+        $payment->currency = $input->itemCurrency;
+
+        $this->paymentGateway->makePayment($payment);
+
+        $email = new Email();
+        $email->to = $input->customerEmail;
+        $email->subject = 'Order successful';
+        $email->content = 'Example content';
+
+        $this->emailService->send($email);
     }
 }

@@ -16,9 +16,9 @@ class OrderServiceTest extends TestCase
         $mockOrder->cardNumber = '1234567812345678';
 
         $orderRepo = \Mockery::mock(OrderRepoInterface::class);
-        $orderRepo->shouldReceive('save')
-            ->once()
+        $orderRepo->expects()->save()
             ->with($mockOrder)
+            ->once()
             ->andReturn(null);
 
         $mockPayment = new Payment();
@@ -27,9 +27,9 @@ class OrderServiceTest extends TestCase
         $mockPayment->currency = 'NTD';        
 
         $paymentGeteway = \Mockery::mock(PaymentGatewayInterface::class);
-        $paymentGeteway->shouldReceive('makePayment')
-            ->once()
+        $paymentGeteway->expects()->makePayment()
             ->with($mockPayment)
+            ->once()
             ->andReturn(null);
         
         $mockEmail = new Email();
@@ -38,9 +38,9 @@ class OrderServiceTest extends TestCase
         $mockEmail->content = 'Example content';
 
         $emailSrv = \Mockery::mock(EmailServiceInterface::class);
-        $emailSrv->shouldReceive('send')
-            ->once()
+        $emailSrv->expects()->send()
             ->with($mockEmail)
+            ->once()
             ->andReturn(null);
 
         $orderSrv = new OrderService(
