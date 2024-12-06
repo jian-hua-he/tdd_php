@@ -7,39 +7,36 @@ use PHPUnit\Framework\TestCase;
 class OrderServiceTest extends TestCase
 {
     public function testProcessOrder_Successful() {
-        $mockOrder = new Order();
-        $mockOrder->customerName = 'John Doe';
-        $mockOrder->customerEmail = 'john.doe@example.com';
-        $mockOrder->itemName = 'Steam deck';
-        $mockOrder->itemPrice = '21000';
-        $mockOrder->itemCurrency = 'NTD';
-        $mockOrder->cardNumber = '1234567812345678';
-
         $orderRepo = \Mockery::mock(OrderRepoInterface::class);
         $orderRepo->expects()->save()
-            ->with($mockOrder)
+            ->with(\Mockery::on(function(Order $order) {
+                return $order->customerName == 'John Doe' &&
+                    $order->customerEmail == 'john.doe@example.com' &&
+                    $order->itemName == 'Steam deck' &&
+                    $order->itemPrice == '21000' &&
+                    $order->itemCurrency == 'NTD' &&
+                    $order->cardNumber == '1234567812345678';
+            }))
             ->once()
             ->andReturn(null);
-
-        $mockPayment = new Payment();
-        $mockPayment->cardNumber = '1234567812345678';
-        $mockPayment->amount = '21000';
-        $mockPayment->currency = 'NTD';        
 
         $paymentGeteway = \Mockery::mock(PaymentGatewayInterface::class);
         $paymentGeteway->expects()->makePayment()
-            ->with($mockPayment)
+            ->with(\Mockery::on(function(Payment $payment) {
+                return $payment->cardNumber == '1234567812345678' &&
+                    $payment->amount == '21000' &&
+                    $payment->currency == 'NTD';        
+            }))
             ->once()
             ->andReturn(null);
         
-        $mockEmail = new Email();
-        $mockEmail->to = 'john.doe@example.com';
-        $mockEmail->subject = 'Order successful';
-        $mockEmail->content = 'Example content';
-
         $emailSrv = \Mockery::mock(EmailServiceInterface::class);
         $emailSrv->expects()->send()
-            ->with($mockEmail)
+            ->with(\Mockery::on(function(Email $email) {
+                return $email->to == 'john.doe@example.com' &&
+                    $email->subject == 'Order successful' &&
+                    $email->content == 'Example content';
+            }))
             ->once()
             ->andReturn(null);
 
