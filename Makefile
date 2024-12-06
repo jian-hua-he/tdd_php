@@ -22,6 +22,10 @@ run:
 destroy:
 	docker rmi $(IMAGE_NAME)
 
+.PHONY: test
+test:
+	./vendor/bin/phpunit src/OrderService/OrderServiceTest.php
+
 # List all commands
 .PHONY: help
 help:
